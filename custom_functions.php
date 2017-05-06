@@ -135,10 +135,10 @@ ENGINE = InnoDB";
 function insertRFIDTableToDatabase($RFID,$pressure,$voltage,$currentI)
 {
 	$db = DB::getInstance();
-	if(!$db->tableExists($RFID))
-	{
-		createRFIDTable($RFID);
-	}
+	//if(!$db->tableExists($RFID))
+	//{
+	//	createRFIDTable($RFID);
+	//}
 	$updateDate = date('Y-m-d H:i:s');
 	$dataArray = array('Time'=> $updateDate,'Pressure' =>$pressure,'Voltage'=>$voltage,'Current'=>$currentI);
 	
@@ -183,7 +183,10 @@ function insertRFIDtorfidsTable($RFID,$pressure,$voltage,$currentI){
 	if ($num ==0){
 	$field = array('RFID'=>$RFID);
         $db ->insert('rfids',$field);
+	createRFIDTable($RFID);
 	insertRFIDTableToDatabase($RFID,$pressure,$voltage,$currentI);
+	}else{
+		insertRFIDTableToDatabase($RFID,$pressure,$voltage,$currentI);
 	}
 
 
