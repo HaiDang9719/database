@@ -36,7 +36,7 @@ $result = json_decode ($json,true);
 $mac_count = 0;
 $WHMAC = "";
 while ($mac_count <= 5) {
-        $WHMAC .= $result['m'][$mac_count];
+        $WHMAC .= dechex((float)$result['m'][$mac_count]);
         $mac_count++;
 }
 $i=0;
@@ -54,7 +54,7 @@ while ($rfid_count <=6){
 	while ( $i<= 3) {
 	# code...
 
-		$RFID .= $result['p'][$sdcsAddr_count]['d'][$rfid_count-1]['r'][$i];
+		$RFID .= dechex((float)$result['p'][$sdcsAddr_count]['d'][$rfid_count-1]['r'][$i]);
 		$i++;
 	}
 	$i=0;
@@ -68,8 +68,8 @@ while ($rfid_count <=6){
 		//echo $WHMAC;
 		$warehouseName=getWarehouseNameByMACAddr($WHMAC);
 		//echo $warehouseName;
-		//echo $sdcsAddr;
-		//echo $sdcsCH;
+		echo $sdcsAddr;
+		echo $sdcsCH;
 		insertRFIDtorfidsTable($RFID,$pressure,0,0);
 		insertRFIDtoStationTable($RFID,$sdcsAddr,$sdcsCH,$warehouseName);
 
